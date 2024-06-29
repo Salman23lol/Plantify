@@ -13,7 +13,7 @@ const Login = () => {
       email,password
     }
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/login', loginData);
+      const response = await axios.post('https://plantify-mcwr.vercel.app/api/auth/login', loginData);
       const { token, user } = response.data;
 
 
@@ -22,7 +22,7 @@ const Login = () => {
       sessionStorage.setItem('sessionToken', token);
       localStorage.setItem('userData', JSON.stringify(user));
 
-
+      window.location.href = '/'
       // Redirect user to desired location
     } catch (error) {
       console.error('Login error:', error);
