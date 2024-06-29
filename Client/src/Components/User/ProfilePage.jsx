@@ -30,7 +30,7 @@ const ProfilePage = () => {
       };
   
       try {
-        const response = await fetch('http://localhost:4000/api/profile', {
+        const response = await fetch('https://plantify-mcwr.vercel.app/api/profile', {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(userData),

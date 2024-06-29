@@ -18,7 +18,7 @@ const Register = () => {
      username: name,email,password
     }
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/register', registerData);
+      const response = await axios.post('https://plantify-mcwr.vercel.app/api/auth/register', registerData);
       const { token } = response.data;
 
       window.location.href = '/auth/login'

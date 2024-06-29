@@ -37,7 +37,7 @@ const ProductCreation = async () => {
       headers['x-auth-token'] = `${token}`;
     }
     try {
-      const response = await fetch('http://localhost:4000/api/products', {
+      const response = await fetch('https://plantify-mcwr.vercel.app/api/products', {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(productData),

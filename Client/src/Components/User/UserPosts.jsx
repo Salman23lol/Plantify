@@ -17,7 +17,7 @@ const UserPosts = ({ userId }) => {
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
-        const response = await fetch(`/api/user-posts?userId=${userId}`);
+        const response = await fetch(`https://plantify-mcwr.vercel.app/api/user-posts?userId=${userId}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
