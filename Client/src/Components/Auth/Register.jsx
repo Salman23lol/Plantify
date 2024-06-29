@@ -1,22 +1,31 @@
 // src/components/Register.jsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-
+import axios from 'axios';
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       console.error('Passwords do not match');
       return;
     }
-    const registerData = { name, email, password };
-    console.log(registerData);
-    // Add logic to handle registration, e.g., API call
+    const registerData = {
+     username: name,email,password
+    }
+    try {
+      const response = await axios.post('http://localhost:4000/api/auth/register', registerData);
+      const { token } = response.data;
+
+      window.location.href = '/auth/login'
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error (e.g., show error message to user)
+    }
   };
 
   return (

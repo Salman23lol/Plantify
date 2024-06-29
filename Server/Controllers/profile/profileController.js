@@ -34,7 +34,7 @@ const createOrUpdateProfile = async (req, res) => {
     // Update user's isProfileCreated status
     await User.findByIdAndUpdate(user, { $set: { isProfileCreated: true } });
 
-    res.json(profile);
+    res.json({message:"Successfully Completed Profile", profile});
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

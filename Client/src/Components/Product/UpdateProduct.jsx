@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const checkifProfilegoodtogo = ()=>{
+  const isProfileTrue = localStorage.getItem("userData")
+  if(isProfileTrue.isProfileCreated === false){
+    window.location.href = '/profile-completion'
+  }
+}
+
 const UpdateProduct = ({ product }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -33,6 +40,11 @@ const UpdateProduct = ({ product }) => {
     };
     console.log(updatedProductData);
   };
+
+  useEffect(() => {
+    checkifProfilegoodtogo()
+  }, [])
+  
 
   return (
     <div className="w-full h-auto bg-gray-600 text-white flex flex-col items-center justify-center p-6 gap-4 pt-32 pb-[85px]">

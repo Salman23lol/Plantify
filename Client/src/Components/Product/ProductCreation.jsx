@@ -1,8 +1,15 @@
 // src/components/ProductCreation.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const ProductCreation = () => {
+const checkifProfilegoodtogo = ()=>{
+  const isProfileTrue = localStorage.getItem("userData")
+  if(isProfileTrue.isProfileCreated === false){
+    window.location.href = '/profile-completion'
+  }
+}
+
+const ProductCreation = async () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -10,7 +17,7 @@ const ProductCreation = () => {
   const [image, setImage] = useState('');
   const [type, setType] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const productData = {
       title,
@@ -20,8 +27,41 @@ const ProductCreation = () => {
       image,
       type,
     };
-    console.log(productData);
+    
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['x-auth-token'] = `${token}`;
+    }
+    try {
+      const response = await fetch('http://localhost:4000/api/products', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(productData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      console.log('Response:', responseData);
+      // Handle success feedback or redirection if needed
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error state or display error message
+    }
+
   };
+
+
+  useEffect(() => {
+    checkifProfilegoodtogo()
+  }, [])
+  
 
   return (
     <div className="w-full h-auto bg-gray-600 text-white flex flex-col items-center justify-center p-6 gap-4 pt-32 pb-[85px]">

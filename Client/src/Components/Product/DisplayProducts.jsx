@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 const DisplayProducts = () => {
   const initialProducts = [
     {
+      id:1,
       title: "Organic Apple",
       description: "Fresh organic apples from the farm.",
       category: "Fruits",
@@ -15,6 +16,7 @@ const DisplayProducts = () => {
       type: "Organic",
     },
     {
+      id:2,
       title: "Organic Orange",
       description: "Fresh organic oranges from the orchard.",
       category: "Fruits",
@@ -24,6 +26,7 @@ const DisplayProducts = () => {
       type: "Organic",
     },
     {
+      id:3,
       title: "Organic Carrot",
       description: "Fresh organic carrots harvested locally.",
       category: "Vegetables",
@@ -33,6 +36,7 @@ const DisplayProducts = () => {
       type: "Organic",
     },
     {
+      id:4,
       title: "Indoor Fern",
       description: "Beautiful indoor fern for home decoration.",
       category: "Plants",

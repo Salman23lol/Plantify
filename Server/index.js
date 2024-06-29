@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const profileRouter = require("./Routes/Profile/profileRoutes");
 const { port, Mongo_uri } = require("./Config/Config");
@@ -8,6 +9,7 @@ const userRouter = require("./Routes/User/userRoutes");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);

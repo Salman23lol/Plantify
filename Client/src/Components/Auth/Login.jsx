@@ -1,16 +1,33 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const loginData = { email, password };
-    console.log(loginData);
-    // Add logic to handle login, e.g., API call
+    const loginData = {
+      email,password
+    }
+    try {
+      const response = await axios.post('http://localhost:4000/api/auth/login', loginData);
+      const { token, user } = response.data;
+
+
+      console.log(response.data)
+      // Save token to sessionStorage
+      sessionStorage.setItem('sessionToken', token);
+      localStorage.setItem('userData', JSON.stringify(user));
+
+
+      // Redirect user to desired location
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error (e.g., show error message to user)
+    }
   };
 
   return (

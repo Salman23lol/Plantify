@@ -52,7 +52,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-// Login user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -69,26 +68,32 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ msg: 'Invalid credentials' }); // Return error if password doesn't match
     }
 
+    // Create sanitized user object
+    const sanitizedUser = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      isVerified: user.isVerified,
+      status: user.status,
+      isProfileCreated: user.isProfileCreated
+      // Add more fields as needed
+    };
+
     // Generate JWT token for user authentication
     const payload = {
-      user: {
-        id: user.id,
-        role: user.role,
-        isVerified: user.isVerified,
-        status: user.status,
-        isProfileCreated: user.isProfileCreated
-      }
+      user: sanitizedUser
     };
 
     jwt.sign(payload, config.jwtSecret, { expiresIn: '1h' }, (err, token) => {
       if (err) throw err; // Throw error if JWT token generation fails
-      res.json({ message: 'User logged in successfully', token }); // Return message and JWT token if successful
+      res.json({ message: 'User logged in successfully', token, user: sanitizedUser }); // Return message, JWT token, and sanitized user object if successful
     });
   } catch (err) {
     console.error(err.message); // Log error message to console
     res.status(500).send('Server Error'); // Return server error if something goes wrong
   }
 };
+
 
 module.exports = {
   registerUser,
